@@ -1,32 +1,45 @@
-# 📊 Sales Lead Scorer
+# 🎯 Sales Lead Scorer
 
-> An ML model that predicts the probability of a sales lead converting to a customer.
-> Inspired by 14+ months of real-world marketing experience at **MyGlamm**.
+> AI-powered lead prioritisation engine · Gradient Boosting · Streamlit
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sales-lead-scorer.streamlit.app)
 
 ---
 
-## 🎯 What It Does
+## Overview
 
-Takes structured CRM data and outputs a conversion probability score between 0 and 1.
-High-scoring leads are prioritised so sales teams focus effort where it matters most.
+Predicts the **conversion probability** of a sales lead in real time using a
+Gradient Boosting Classifier trained on 1,200 synthetic MyGlamm-inspired leads.
+Score individual leads or batch-upload a CSV to rank your entire pipeline.
 
-## 🛠️ Tech Stack
+## Features
 
-- **Language:** Python 3.10+
-- **ML:** scikit-learn (Random Forest / Gradient Boosting)
-- **Data:** pandas, NumPy
-- **Evaluation:** matplotlib, seaborn
+| Tab | What it does |
+|-----|-------------|
+| 🎯 Score a Lead | Real-time scoring with gauge, tier badge & factor breakdown |
+| 📊 Pipeline Analytics | Conversion rates, funnels, scatter plots, histograms |
+| 🧠 Model Insights | ROC curve, confusion matrix, feature importance |
+| ℹ️ About | Project details, tech stack, builder info |
 
-## 📁 Project Structure
-## ⚡ Quick Start
+## Model
+
+- **Algorithm:** Gradient Boosting Classifier (scikit-learn)
+- **Estimators:** 200 trees · Max depth: 4 · Learning rate: 0.08
+- **Features:** lead_source, product_category, engagement_score, time_on_site_sec,
+  pages_visited, previous_purchases, days_since_contact, budget_range, location_tier, age_group
+- **Training data:** 1,200 synthetic leads (MyGlamm D2C funnel inspired)
+
+## Tech Stack
+
+`Python` · `Streamlit` · `scikit-learn` · `Plotly` · `Pandas` · `NumPy`
+
+## Run Locally
 
 ```bash
-git clone https://github.com/thesouravburman/sales-lead-scorer
-cd sales-lead-scorer
 pip install -r requirements.txt
-python train.py --data data/sample_leads.csv
+streamlit run app.py
 ```
 
-## 📬 Contact
+---
 
-**Sourav Burman** — thesouravburman@gmail.com · [LinkedIn](https://linkedin.com/in/sourav-burman)
+**Built by [Sourav Burman](https://github.com/thesouravburman)**
