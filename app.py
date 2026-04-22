@@ -13,142 +13,44 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ── Fonts + Global CSS ─────────────────────────────────────────────────────────
+# ── CSS injected via JavaScript (bypasses Streamlit's <style> tag sanitizer) ───
 st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  html, body, [class*="css"] {
-    font-family: 'Poppins', sans-serif;
-    background: #060A0F;
-    color: #E2E8F0;
-  }
-  .stApp { background: #060A0F; }
-
-  #MainMenu, footer, header { visibility: hidden; }
-  .block-container { padding-top: 1rem; padding-bottom: 2rem; }
-
-  .stTabs [data-baseweb="tab-list"] {
-    gap: 4px;
-    background: rgba(16,185,129,0.06);
-    border-radius: 12px;
-    padding: 6px;
-    border: 1px solid rgba(16,185,129,0.15);
-  }
-  .stTabs [data-baseweb="tab"] {
-    background: transparent;
-    border-radius: 8px;
-    color: #94A3B8;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    padding: 8px 20px;
-    border: none;
-  }
-  .stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, #10B981, #059669) !important;
-    color: #fff !important;
-  }
-
-  .glass-card {
-    background: rgba(16,185,129,0.05);
-    border: 1px solid rgba(16,185,129,0.2);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
-    backdrop-filter: blur(12px);
-  }
-  .amber-card {
-    background: rgba(245,158,11,0.06);
-    border: 1px solid rgba(245,158,11,0.25);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-  .purple-card {
-    background: rgba(139,92,246,0.06);
-    border: 1px solid rgba(139,92,246,0.25);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-
-  .metric-tile {
-    background: rgba(16,185,129,0.08);
-    border: 1px solid rgba(16,185,129,0.3);
-    border-radius: 14px;
-    padding: 20px;
-    text-align: center;
-  }
-  .metric-val {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, #10B981, #F59E0B);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .metric-lbl {
-    font-size: 0.72rem;
-    color: #64748B;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 4px;
-  }
-
-  label, .stSelectbox label, .stSlider label {
-    font-family: 'Montserrat', sans-serif !important;
-    font-size: 0.78rem !important;
-    letter-spacing: 0.06em !important;
-    color: #94A3B8 !important;
-    text-transform: uppercase !important;
-  }
-
-  .stButton > button {
-    background: linear-gradient(135deg, #10B981, #059669);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 12px 32px;
-    font-size: 0.85rem;
-    width: 100%;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .stButton > button:hover {
-    background: linear-gradient(135deg, #059669, #047857);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(16,185,129,0.35);
-  }
-
-  .brand-watermark {
-    position: fixed; top: 14px; right: 18px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.62rem; letter-spacing: 0.18em;
-    color: rgba(16,185,129,0.28); z-index: 999; pointer-events: none;
-  }
-  .brand-watermark-left {
-    position: fixed; top: 14px; left: 18px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.62rem; letter-spacing: 0.18em;
-    color: rgba(16,185,129,0.28); z-index: 999; pointer-events: none;
-  }
-
-  h1, h2, h3 { font-family: 'Montserrat', sans-serif !important; letter-spacing: 0.05em !important; }
-
-  .emerald-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #10B981, transparent);
-    margin: 20px 0; border: none;
-  }
-
-  .dataframe { font-size: 0.8rem; }
-  .js-plotly-plot .plotly { background: transparent !important; }
-</style>
+<script>
+(function injectCSS() {
+  var id = 'lead-scorer-global-css';
+  var existing = document.getElementById(id);
+  if (existing) existing.remove();
+  var style = document.createElement('style');
+  style.id = id;
+  style.textContent = [
+    'html, body, [class*="css"] { font-family: Poppins, sans-serif; background: #060A0F; color: #E2E8F0; }',
+    '.stApp { background: #060A0F; }',
+    '#MainMenu, footer, header { visibility: hidden; }',
+    '.block-container { padding-top: 1rem; padding-bottom: 2rem; }',
+    '.stTabs [data-baseweb="tab-list"] { gap: 4px; background: rgba(16,185,129,0.06); border-radius: 12px; padding: 6px; border: 1px solid rgba(16,185,129,0.15); }',
+    '.stTabs [data-baseweb="tab"] { background: transparent; border-radius: 8px; color: #94A3B8; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.08em; padding: 8px 20px; border: none; }',
+    '.stTabs [aria-selected="true"] { background: linear-gradient(135deg, #10B981, #059669) !important; color: #fff !important; }',
+    '.glass-card { background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 24px; margin-bottom: 16px; backdrop-filter: blur(12px); }',
+    '.amber-card { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.25); border-radius: 16px; padding: 24px; margin-bottom: 16px; }',
+    '.purple-card { background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.25); border-radius: 16px; padding: 24px; margin-bottom: 16px; }',
+    '.metric-tile { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); border-radius: 14px; padding: 20px; text-align: center; }',
+    '.metric-val { font-family: Montserrat, sans-serif; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #10B981, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }',
+    '.metric-lbl { font-size: 0.72rem; color: #64748B; letter-spacing: 0.12em; text-transform: uppercase; font-family: Montserrat, sans-serif; margin-top: 4px; }',
+    'label, .stSelectbox label, .stSlider label { font-family: Montserrat, sans-serif !important; font-size: 0.78rem !important; letter-spacing: 0.06em !important; color: #94A3B8 !important; text-transform: uppercase !important; }',
+    '.stButton > button { background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: none; border-radius: 10px; font-family: Montserrat, sans-serif; font-weight: 700; letter-spacing: 0.1em; padding: 12px 32px; font-size: 0.85rem; width: 100%; cursor: pointer; transition: all 0.2s; }',
+    '.stButton > button:hover { background: linear-gradient(135deg, #059669, #047857); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(16,185,129,0.35); }',
+    '.brand-watermark { position: fixed; top: 14px; right: 18px; font-family: Montserrat, sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; color: rgba(16,185,129,0.28); z-index: 999; pointer-events: none; }',
+    '.brand-watermark-left { position: fixed; top: 14px; left: 18px; font-family: Montserrat, sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; color: rgba(16,185,129,0.28); z-index: 999; pointer-events: none; }',
+    'h1, h2, h3 { font-family: Montserrat, sans-serif !important; letter-spacing: 0.05em !important; }',
+    '.emerald-divider { height: 1px; background: linear-gradient(90deg, transparent, #10B981, transparent); margin: 20px 0; border: none; }',
+    '.dataframe { font-size: 0.8rem; }',
+    '.js-plotly-plot .plotly { background: transparent !important; }'
+  ].join(' ');
+  document.head.appendChild(style);
+  setTimeout(injectCSS, 800);
+})();
+</script>
 """, unsafe_allow_html=True)
 
 # ── Animated particle background ───────────────────────────────────────────────
@@ -338,7 +240,6 @@ with tab1:
             st.plotly_chart(fig_gauge, use_container_width=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
-            # Top factors
             st.markdown('<div class="amber-card">', unsafe_allow_html=True)
             st.markdown("""<div style="font-family:'Montserrat',sans-serif;font-size:0.68rem;
                           letter-spacing:0.2em;color:#F59E0B;margin-bottom:14px;">
@@ -375,7 +276,6 @@ with tab1:
               </div>
             </div>""", unsafe_allow_html=True)
 
-        # Batch CSV
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown('<div class="purple-card">', unsafe_allow_html=True)
         st.markdown("""<div style="font-family:'Montserrat',sans-serif;font-size:0.68rem;
