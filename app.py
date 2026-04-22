@@ -250,7 +250,6 @@ with tab1:
 
         c1, c2 = st.columns(2)
         with c1:
-            # ── Values MUST match model.py training data exactly ──
             lead_source = st.selectbox("Lead Source",
                 ["Instagram","Facebook","Google Ads","Referral","Email","WhatsApp"])
             product_cat = st.selectbox("Product Category",
