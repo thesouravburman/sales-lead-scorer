@@ -152,7 +152,7 @@ st.markdown("""
   </a>
 </div>
 """, unsafe_allow_html=True)
-st.markdown('<div class="brand-watermark-left">⬡ SALES LEAD SCORER v1.0</div>', unsafe_allow_html=True)
+st.markdown('<div class="brand-watermark-left">⬡ SOURAV BURMAN · CS ENGINEER<br>⬡ SALES LEAD SCORER v1.0</div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div style="text-align:center;padding:30px 0 10px;">
@@ -677,19 +677,18 @@ with tab4:
         st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown('<div class="purple-card" style="margin-top:0;">', unsafe_allow_html=True)
-        st.markdown("""
+        tech_badges = "".join([
+            f'<span style="background:rgba(139,92,246,0.15);border:1px solid '
+            f'rgba(139,92,246,0.3);border-radius:6px;padding:3px 10px;'
+            f'font-size:0.73rem;color:#A78BFA;">{t}</span>'
+            for t in ["Python 3.11","Streamlit","scikit-learn","Gradient Boosting",
+                      "Plotly","Pandas","NumPy"]
+        ])
+        st.markdown(f"""
         <div style="font-family:'Montserrat',sans-serif;font-size:0.68rem;
                     letter-spacing:0.2em;color:#8B5CF6;margin-bottom:12px;">⚡ TECH STACK</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-        """, unsafe_allow_html=True)
-        for t in ["Python 3.11","Streamlit","scikit-learn","Gradient Boosting",
-                  "Plotly","Pandas","NumPy"]:
-            st.markdown(
-                f'<span style="background:rgba(139,92,246,0.15);border:1px solid '
-                f'rgba(139,92,246,0.3);border-radius:6px;padding:3px 10px;'
-                f'font-size:0.73rem;color:#A78BFA;">{t}</span>',
-                unsafe_allow_html=True)
-        st.markdown("</div></div>", unsafe_allow_html=True)
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">{tech_badges}</div>
+        </div>""", unsafe_allow_html=True)
 
 # ── Footer ──────────────────────────────────────────────────────────────────────
 st.markdown('<div class="emerald-divider"></div>', unsafe_allow_html=True)
