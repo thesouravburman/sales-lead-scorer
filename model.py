@@ -3,7 +3,9 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, roc_auc_score
+from sklearn.metrics import (accuracy_score, roc_auc_score,
+                              precision_score, recall_score,
+                              confusion_matrix, roc_curve)
 from sklearn.preprocessing import LabelEncoder
 import streamlit as st
 
@@ -65,7 +67,20 @@ def get_model():
     mdl = GradientBoostingClassifier(n_estimators=200,max_depth=4,
                                       learning_rate=0.1,min_samples_leaf=10,random_state=42)
     mdl.fit(Xtr,ytr)
-    return mdl, encoders, FEATURES, df
+   y_pred  = mdl.predict(Xte)
+    y_proba = mdl.predict_proba(Xte)[:,1]
+    fpr, tpr, _ = roc_curve(yte, y_proba)
+    metrics = {
+        "accuracy":            accuracy_score(yte, y_pred),
+        "roc_auc":             roc_auc_score(yte, y_proba),
+        "precision":           precision_score(yte, y_pred),
+        "recall":              recall_score(yte, y_pred),
+        "confusion_matrix":    confusion_matrix(yte, y_pred).tolist(),
+        "feature_importances": mdl.feature_importances_.tolist(),
+        "fpr":                 fpr.tolist(),
+        "tpr":                 tpr.tolist(),
+    }
+    return mdl, encoders, FEATURES, metrics, df
 
 def predict_lead(model, encoders, features, lead_data):
     cat_cols = ['lead_source','product_category','budget_range','location_tier','age_group']
